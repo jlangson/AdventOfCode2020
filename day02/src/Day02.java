@@ -17,15 +17,21 @@ public class Day02 {
             passwords.add(password);
         }
         scanner.close();
-        int numValidPassswords=0;
+        int numValidRuleOnePassswords=0;
+        int numValidRuleTwoPasswords=0;
         for(Password password : passwords){
-            if(password.getValid()){
-                numValidPassswords++;
+            if(password.getValidRuleOne()){
+                numValidRuleOnePassswords++;
+            }
+            //NOT if else because a passsword can be valid by both rules
+            if(password.getValidRuleTwo()){
+                numValidRuleTwoPasswords++;
             }
         }
 
        
-        System.out.println(numValidPassswords);
+        System.out.println(numValidRuleOnePassswords);
+        System.out.println(numValidRuleTwoPasswords);
     }
 
     public static Password parsePassword(String line){
