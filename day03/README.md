@@ -1,3 +1,12 @@
+## Explanation
+TobogganTwo.java is a general solution that works for any sized grid and any amount of sleighs with any speeds
+ToboggaOne.java was a specific solution to a sleigh that goes down 1 over 3. 
+Sleigh.java simulates the sleigh or the "toboggan"
+
+Please excuse the class names. I named them on what I thought I would need, not what I actually needed. Lesson learned!
+
+
+## Problem Description
 --- Day 3: Toboggan Trajectory ---
 With the toboggan login problems resolved, you set off toward the airport. While travel by toboggan might be easy, it's certainly not safe: there's very minimal steering and the area is covered in trees. You'll need to see which angles will take you near the fewest trees.
 

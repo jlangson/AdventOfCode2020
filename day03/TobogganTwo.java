@@ -25,7 +25,6 @@ public class TobogganTwo {
         sleighs.add(new Sleigh(7,1));
         sleighs.add(new Sleigh(1,2)); 
 
-        // char[][] grid = new char[fileStream.get(0).length()][fileStream.size()]; //[x][y]
         ArrayList<String> grid = new ArrayList<>(fileStream.size());
 
        //populate the grid
@@ -48,54 +47,19 @@ public class TobogganTwo {
                    sleigh.setRowLoc(sleigh.getRowLoc() - grid.get(y).length());
                    x = sleigh.getRowLoc();
                }
-               //since the values could change, set them again.
-               
-            //    y = sleigh.getColLoc();
                if(grid.get(y).charAt(x)=='#'){ 
                    sleigh.collision();
                }
-               
-              
                 sleigh.nextRow();
-                sleigh.nextCol();
-               
+                sleigh.nextCol();   
            }
        }
-
-
-
-      
-        // for(String row : fileStream){
-        //     for(Sleigh sleigh : sleighs){
-        //         if(sleigh.getRowLoc() >= row.length()){ //simulates a grid of infinite width
-        //             sleigh.setRowLoc(sleigh.getRowLoc() - row.length());
-        //         }
-              
-        //         if(row.charAt(sleigh.getRowLoc())=='#'){
-        //             sleigh.collision();
-        //         }
-        //         sleigh.nextCol();
-        //         sleigh.nextRow();
-        //     }
-        // }
-        //for calculating sum
+        //for calculating product
         int product = 1;
         for(Sleigh sleigh : sleighs){
             System.out.println(sleigh);
             product *= sleigh.getTreesHit();
         }
         System.out.println(product);
-       
-       
-       
-
-    //grid repeats on width so reset x
-            // if(x >= row.length()){
-            //    x = x - row.length();
-            // }
-            // if(row.charAt(x)=='#'){
-                
-            // }
-            // x+=3; //sleigh moves horizontally 3 per 1 row.
     }
 }
