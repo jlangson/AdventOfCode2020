@@ -23,22 +23,61 @@ public class TobogganTwo {
         sleighs.add(new Sleigh(3,1));
         sleighs.add(new Sleigh(5,1));
         sleighs.add(new Sleigh(7,1));
-        // sleighs.add(new Sleigh(1,2)); //will have to hardcode this since I didn't make a grid
+        sleighs.add(new Sleigh(1,2)); 
+
+        // char[][] grid = new char[fileStream.get(0).length()][fileStream.size()]; //[x][y]
+        ArrayList<String> grid = new ArrayList<>(fileStream.size());
+
+       //populate the grid
+       for(int i=0; i < fileStream.size(); i++){
+           grid.add(fileStream.get(i));
+       }
+
+       //go through the grid row by row. Pretend each iteration is 1 second of the sleigh traveling
+       //each iteration compare the position of the sleigh to the location in the grid
+       for(int t=0; t < grid.size(); t++){
+           for(Sleigh sleigh : sleighs){
+               //prevents going off the grid vertically
+               if(sleigh.getColLoc() > grid.size()){
+                   continue;
+               }
+               //used x and y to make it more readable
+               int x = sleigh.getRowLoc();
+               int y = sleigh.getColLoc();
+               if(x >= grid.get(y).length()){
+                   sleigh.setRowLoc(sleigh.getRowLoc() - grid.get(y).length());
+                   x = sleigh.getRowLoc();
+               }
+               //since the values could change, set them again.
+               
+            //    y = sleigh.getColLoc();
+               if(grid.get(y).charAt(x)=='#'){ 
+                   sleigh.collision();
+               }
+               
+              
+                sleigh.nextRow();
+                sleigh.nextCol();
+               
+           }
+       }
+
+
 
       
-        for(String row : fileStream){
-            for(Sleigh sleigh : sleighs){
-                if(sleigh.getRowLoc() >= row.length()){ //simulates a map of infinite width
-                    sleigh.setRowLoc(sleigh.getRowLoc() - row.length());
-                }
+        // for(String row : fileStream){
+        //     for(Sleigh sleigh : sleighs){
+        //         if(sleigh.getRowLoc() >= row.length()){ //simulates a grid of infinite width
+        //             sleigh.setRowLoc(sleigh.getRowLoc() - row.length());
+        //         }
               
-                if(row.charAt(sleigh.getRowLoc())=='#'){
-                    sleigh.collision();
-                }
-                sleigh.nextCol();
-                sleigh.nextRow();
-            }
-        }
+        //         if(row.charAt(sleigh.getRowLoc())=='#'){
+        //             sleigh.collision();
+        //         }
+        //         sleigh.nextCol();
+        //         sleigh.nextRow();
+        //     }
+        // }
         //for calculating sum
         int product = 1;
         for(Sleigh sleigh : sleighs){
@@ -50,7 +89,7 @@ public class TobogganTwo {
        
        
 
-    //map repeats on width so reset x
+    //grid repeats on width so reset x
             // if(x >= row.length()){
             //    x = x - row.length();
             // }
