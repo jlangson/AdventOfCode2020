@@ -28,35 +28,37 @@ public class Passport {
         //{ "ecl:blu", "byr:1934", "hcl:#888785", "iyr:2019", "pid:905361316", "eyr:2021", "hgt:150cm" }
         for(int i=0; i < passportFields.length; i++){
             String field = passportFields[i];
-            switch(field)
+            String[] keyValue = field.split(":");
+            //"ecl:blu" -> {"ecl", "blu"}
+            switch(keyValue[0])
             {
                 // byr (Birth Year) - four digits; at least 1920 and at most 2002.
                 case "byr":
-                    this.byr=Integer.parseInt(field);
+                    this.byr=Integer.parseInt(keyValue[1]);
                     break;
                 // iyr (Issue Year) - four digits; at least 2010 and at most 2020.
                 case "iyr":
-                    this.iyr = Integer.parseInt(field);
+                    this.iyr = Integer.parseInt(keyValue[1]);
                     break;
                 // eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
                 case "eyr":
-                    this.eyr = Integer.parseInt(field);
+                    this.eyr = Integer.parseInt(keyValue[1]);
                     break;
                 // hgt (Height) - a number followed by either cm or in:
                 case "hgt":
-                    this.hgt=field;
+                    this.hgt=keyValue[1];
                     break;
                 // hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
                 case "hcl":
-                    this.hcl = field;
+                    this.hcl = keyValue[1];
                     break;
                 // ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
                 case "ecl":
-                    this.ecl = field;
+                    this.ecl = keyValue[1];
                     break;
                 // pid (Passport ID) - a nine-digit number, including leading zeroes. 
                 case "pid":
-                    this.pid = field;
+                    this.pid = keyValue[1];
                     break;
                     //no default b/c if itss not one of these I don't care im not saving it
             }
@@ -114,22 +116,25 @@ public class Passport {
         if(this.hgt.contains("cm")){
             //height is between : and c
             int lastDigitLoc = hgt.indexOf("c"); //7
-            int height = Integer.parseInt( hgt.substring(4, lastDigitLoc)); //hgt:134cm
+            int height = Integer.parseInt( hgt.substring(0, lastDigitLoc)); //hgt:134cm
             
             if(height < 150 || height > 193){
                 valid=false;
             }
         }
-        else{
+        else if(this.hgt.contains("in")){
             //height is between : and i
             int lastDigitLoc = hgt.indexOf("i"); //7
-            int height = Integer.parseInt( hgt.substring(4, lastDigitLoc)); //hgt:134cm
+            int height = Integer.parseInt( hgt.substring(0, lastDigitLoc)); //hgt:134cm
             if(height < 59 || height > 76 ){
                 valid = false;
             }
         }
+        else{ //means no units given
+            valid=false;
+        }
         // hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
-        if(!this.hcl.matches("#([0-9]|[a-f]){6})")){ //black magic
+        if(!this.hcl.matches("#([0-9]|[a-f]){6}")){ //black magic
             valid=false;
         }
     // ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
@@ -145,22 +150,21 @@ public class Passport {
                                             "hzl","",
                                             "oth",""
                                         );
-        if(validEyeColors.get(this.hgt)==null){
+        if(validEyeColors.get(this.ecl)==null){ //imm dying. this used to be this.hgt so everything was false;
             valid=false;
         }
-        
-    // pid (Passport ID) - a nine-digit number, including leading zeroes.
-    if(!this.pid.matches("[0-9]{9}")){
-        valid=false;
-    }
+            
+        // pid (Passport ID) - a nine-digit number, including leading zeroes.
+        if(!this.pid.matches("[0-9]{9}")){
+            valid=false;
+        }
 
     
 
 
         return valid;
     }
-
-    public Passport() {
+   public Passport() {
     }
 
     public void setValid(boolean isValid) {
@@ -173,8 +177,10 @@ public class Passport {
 
     @Override
     public String toString() {
-        return "Passport [byr=" + byr + ", cid=" + cid + ", ecl=" + ecl + ", hcl=" + hcl + ", hgt=" + hgt + ", isValid="
-                + isValid + ", iyr=" + iyr + ", pid=" + pid + "]";
+        return "Passport [byr=" + byr + ", cid=" + cid + ", ecl=" + ecl + ", eyr=" + eyr + ", hcl=" + hcl + ", hgt="
+                + hgt + ", isValid=" + isValid + ", iyr=" + iyr + ", pid=" + pid + "]";
     }
+
+
 
 }

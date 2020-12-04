@@ -16,11 +16,19 @@ public class Main {
         for(String line : fileStream){
 
             if(!line.equals("")){ //line is not empty so we are grouping the passport data
-               rawPassport+=line;
-               
+                //insert a space after a newline so my constructor doesn't suck
+               rawPassport = rawPassport + line + " ";
+               continue;
+
+                // hgt:156cm ecl:brn eyr:2023
+                // iyr:2011
+                // hcl:#6b5442 pid:328412891 byr:1948
              }
              else{  
-                 //construct the passport
+                 //construct the passport     
+                 //trim trailing space form rawpp  
+                 rawPassport = rawPassport.trim();                                   
+                 System.out.println(rawPassport); //debugging
                  Passport passport = new Passport(rawPassport); 
                  allPassports.add(passport);
 
@@ -28,8 +36,9 @@ public class Main {
                 if(passport.getValid()){
                     validPassports++;
                 }
+                rawPassport="";
             }
-            rawPassport="";
+            
 
         }
             
