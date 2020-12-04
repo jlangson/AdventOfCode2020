@@ -9,9 +9,9 @@ public class Passport {
     // ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
     // pid (Passport ID) - a nine-digit number, including leading zeroes.
     // cid (Country ID) - ignored, missing or not.
-    private int byr;
-    private int iyr;
-    private int eyr;
+    private Integer byr;
+    private Integer iyr;
+    private Integer eyr;
     private String hgt;
     private String hcl;
     private String ecl;
@@ -19,17 +19,63 @@ public class Passport {
     private String cid;
     private boolean isValid; // prolly should be final
 
-    public Passport(int byr, int iyr, int eyr, String hgt, String hcl, String ecl, String pid, String cid) {
-        this.byr = byr;
-        this.iyr = iyr;
-        this.eyr = eyr;
-        this.hgt = hgt;
-        this.hcl = hcl;
-        this.ecl = ecl;
-        this.pid = pid;
-        this.cid = cid;
+    //use by passing it a passport on one ine. fields can be in any order
+    public Passport(String rawPassport){
+        //i wrote thiss AFter the datermineValidity sso mhy conditional is WHACK
+        //note to self, determine how to not repeat this pattern
+        String[] passportFields = rawPassport.split(" "); 
+        // ecl:blu byr:1934 hcl:#888785 iyr:2019 pid:905361316 eyr:2021 hgt:150cm
+        //{ "ecl:blu", "byr:1934", "hcl:#888785", "iyr:2019", "pid:905361316", "eyr:2021", "hgt:150cm" }
+        for(int i=0; i < passportFields.length; i++){
+            String field = passportFields[i];
+            switch(field)
+            {
+                // byr (Birth Year) - four digits; at least 1920 and at most 2002.
+                case "byr":
+                    this.byr=Integer.parseInt(field);
+                    break;
+                // iyr (Issue Year) - four digits; at least 2010 and at most 2020.
+                case "iyr":
+                    this.iyr = Integer.parseInt(field);
+                    break;
+                // eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
+                case "eyr":
+                    this.eyr = Integer.parseInt(field);
+                    break;
+                // hgt (Height) - a number followed by either cm or in:
+                case "hgt":
+                    this.hgt=field;
+                    break;
+                // hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
+                case "hcl":
+                    this.hcl = field;
+                    break;
+                // ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
+                case "ecl":
+                    this.ecl = field;
+                    break;
+                // pid (Passport ID) - a nine-digit number, including leading zeroes. 
+                case "pid":
+                    this.pid = field;
+                    break;
+                    //no default b/c if itss not one of these I don't care im not saving it
+            }
+
+        }
         this.isValid = determineValidity();
     }
+
+    // public Passport(int byr, int iyr, int eyr, String hgt, String hcl, String ecl, String pid, String cid) {
+    //     this.byr = byr;
+    //     this.iyr = iyr;
+    //     this.eyr = eyr;
+    //     this.hgt = hgt;
+    //     this.hcl = hcl;
+    //     this.ecl = ecl;
+    //     this.pid = pid;
+    //     this.cid = cid;
+    //     this.isValid = determineValidity();
+    // }
 
     // byr (Birth Year) - four digits; at least 1920 and at most 2002.
     // iyr (Issue Year) - four digits; at least 2010 and at most 2020.
@@ -43,6 +89,13 @@ public class Passport {
     // cid (Country ID) - ignored, missing or not.
     private boolean determineValidity() {
         boolean valid=true; //so i only need 1 return statement. start it as true and if fails anything make it false b/c it is
+        //if any are not initalized it's invalid;
+        if(this.byr == null || this.iyr==null || this.eyr==null || this.hgt ==null || this.hcl ==null || this.ecl==null || this.pid==null){
+            return false; //have to short circuit or you get nulll pointer exceptions later on.
+        }
+        // for(Field f : this.getDeclaredFields()){
+
+
         if(byr < 1920 || byr >2002){
             valid=false;
         }
