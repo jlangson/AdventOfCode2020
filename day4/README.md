@@ -1,3 +1,35 @@
+## Thoughts
+I tried to be a "cool kid" and blitz this out. Worked fine for part1.
+Utterly failed for part2. 
+
+### Part1
+Is completed in MainDirty.java
+
+### Part2 uses Passport and Main
+I approached this backwards.
+What I did:
+1. Make passport class
+2. Make validity testing function for passport.java
+3. parse the input file
+4. Realize that the way I was parsing the input file did not match how I had designed the passport class so I had to rewrite chunks of it. There are also a lot of getters and setters I don't use. I rewrite the entire constructor
+5. Fix all the bugs. I had bugs in: validityTest, constructor (LOL), and parsing the input file. 
+6. Code review to not repeat these mistakes.
+
+## Lessons Learned
+1. Java is a bad choice for Advent of Code because 
+    1. Advent of Code rewards developement speed not run-time or memory use
+    2. Other languages have easier string parsing
+    3. Static typing makes bottom up development harder. 
+2. How to parse better
+    1. Have the input in front of me while I am writing the parsing functions. Don't rely on memory.
+    2. Make fewer assumptions about the input. For example, I assumed that every height would have units. Some didn't.
+3. How to design better
+    1. Don't preemptively make a class because I think it will solve my problem. **INSTEAD** work in the main method and use the class as if it exists and all the methods do what I want. **THEN** write those methods in the class method.
+
+
+
+
+##Problem
 --- Day 4: Passport Processing ---
 You arrive at the airport only to realize that you grabbed your North Pole Credentials instead of your passport. While these documents are extremely similar, North Pole Credentials aren't issued by a country and therefore aren't actually valid documentation for travel in most of the world.
 
