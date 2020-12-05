@@ -24,7 +24,7 @@ public class BoardingPass {
        int min = 0;
        int max =(int) Math.pow(2, str.length())-1;
 
-           System.out.printf("Min is %d. Max is %d. %n", min, max);
+        //    System.out.printf("Min is %d. Max is %d. %n", min, max);
        for(int i=0; i < str.length(); i++){
             int adjust = (int) Math.pow(2,str.length()-1-i);
             if(str.charAt(i)==FL){
