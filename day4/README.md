@@ -1,6 +1,7 @@
 ## Thoughts
 I tried to be a "cool kid" and blitz this out. Worked fine for part1.
 Utterly failed for part2. 
+part2 answer 190
 
 ### Part1
 Is completed in MainDirty.java

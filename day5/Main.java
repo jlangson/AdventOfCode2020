@@ -59,4 +59,10 @@ public class Main {
         // System.out.printf("maxId is%d minId is%d maxRow is %d minRow is %d", maxId, minId, maxRow, minRow); //answer 842 maxId
         System.out.printf("%d <= id =< %d\t %d =< row =< %d\t %d =< col =< %d%n",  minId, maxId, minRow, maxRow, minCol, maxCol); //answer 842 maxId
     }
+    
+    //assumes input is sorted
+    public static void printSeats(ArrayList<ArrayList<Integer>> map){ //got type mismath error using hashmap of arraylist
+        
+    }
+
 }
